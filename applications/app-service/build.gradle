@@ -1,12 +1,15 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':reactive-web')
     implementation project(':model')
     implementation project(':usecase')
     implementation 'org.springframework.boot:spring-boot-starter'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation 'com.tngtech.archunit:archunit:1.4.1'
     testImplementation 'tools.jackson.core:jackson-databind'
+    implementation("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    implementation("io.micrometer:micrometer-core:1.17.0-M1")
 }
 
 tasks.register('explodedJar', Copy) {
@@ -24,3 +27,6 @@ bootJar {
     archiveFileName = "${project.getParent().getName()}.${archiveExtension.get()}"
 }
 
+bootRun {
+    jvmArgs = ['--enable-native-access=ALL-UNNAMED']
+}

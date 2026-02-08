@@ -1,14 +1,20 @@
-##Spring Configuration
 server:
-  port: 8080
+  port: ${APP_PORT:8080}
 spring:
   application:
-    name: IAFinance
+    name: "api-ai-finance"
+  webflux:
+    base-path: ${APP_CONTEXT:/api-ai-finance}
   devtools:
     add-properties: false
-  h2:
-    console:
-      enabled: true
-      path: /h2
-  profiles:
-    include:
+management:
+  endpoints:
+    web:
+      base-path: "/actuator"
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      show-details: "always"
+      probes:
+        enabled: true
