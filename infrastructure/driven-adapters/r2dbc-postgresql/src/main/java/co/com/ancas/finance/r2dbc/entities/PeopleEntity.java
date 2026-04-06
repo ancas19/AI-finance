@@ -1,37 +1,35 @@
 package co.com.ancas.finance.r2dbc.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Table(name = "people")
 public class PeopleEntity extends AuditEntity {
     @Id
-    @Column(name = "id")
+    @Column("id")
     private Long id;
-    @Column(name = "names")
+    @Column("names")
     private String names;
-    @Column(name = "last_names")
+    @Column("last_names")
     private String lastNames;
-    @Column(name = "dni")
+    @Column("dni")
     private String dni;
-    @Column(name = "cellphone")
+    @Column("cellphone")
     private String cellphone;
 
     public PeopleEntity() {
     }
 
     public PeopleEntity(String createdBy, String updatedBy, LocalDateTime createdAt, LocalDateTime updatedAt, Long id, String names, String lastNames, String dni, String cellphone) {
+        super(createdBy, updatedBy, createdAt, updatedAt);
         this.id = id;
         this.names = names;
         this.lastNames = lastNames;
         this.dni = dni;
         this.cellphone = cellphone;
-        super(createdBy, updatedBy, createdAt, updatedAt);
     }
 
     public Long getId() {

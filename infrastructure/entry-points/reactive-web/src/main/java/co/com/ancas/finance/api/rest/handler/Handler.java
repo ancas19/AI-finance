@@ -1,4 +1,4 @@
-package co.com.ancas.finance.api;
+package co.com.ancas.finance.api.rest.handler;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;

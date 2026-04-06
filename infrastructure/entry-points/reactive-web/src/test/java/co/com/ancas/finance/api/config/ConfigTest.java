@@ -1,7 +1,7 @@
 package co.com.ancas.finance.api.config;
 
-import co.com.ancas.finance.api.Handler;
-import co.com.ancas.finance.api.RouterRest;
+import co.com.ancas.finance.api.rest.handler.Handler;
+import co.com.ancas.finance.api.rest.route.RouterRest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webflux.test.autoconfigure.WebFluxTest;

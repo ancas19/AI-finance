@@ -1,23 +1,21 @@
 package co.com.ancas.finance.r2dbc.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Table(name = "users")
 public class UsersEntity extends AuditEntity {
     @Id
-    @Column(name = "id")
+    @Column("id")
     private Long id;
-    @Column(name = "email")
+    @Column("email")
     private String email;
-    @Column(name = "password")
+    @Column("password")
     private String password;
-    @Column(name = "person_id")
+    @Column("person_id")
     private Long personId;
 
     public UsersEntity(){
@@ -93,7 +91,7 @@ public class UsersEntity extends AuditEntity {
             return this;
         }
 
-        public Builder prsonId(Long personId) {
+        public Builder personId(Long personId) {
             this.personId= personId;
             return this;
         }

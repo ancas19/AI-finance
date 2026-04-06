@@ -5,4 +5,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux-test'
     implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation("jakarta.validation:jakarta.validation-api:4.0.0-M1")
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+    implementation("org.springframework:spring-tx:7.0.6")
 }
