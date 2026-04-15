@@ -18,6 +18,14 @@ management:
       show-details: "always"
       probes:
         enabled: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+
 adapters:
   r2dbc:
     host: ${R2DBC_HOST:localhost}
@@ -26,7 +34,16 @@ adapters:
     schema: ${R2DBC_SCHEMA:public}
     username: ${R2DBC_USERNAME:myuser}
     password: ${R2DBC_PASSWORD:mypass}
+    # Pool sizing
     poolSize: ${R2DBC_POOLSIZE:5}
     maxSize: ${R2DBC_MAXSIZE:20}
-    maxIdleTime: ${R2DBC_MAXIDLETIME:10}
+    # All durations now in SECONDS
+    maxIdleTime: ${R2DBC_MAXIDLETIME:30}          # 30s idle before closing
+    maxLifeTime: ${R2DBC_MAXLIFETIME:1800}         # 30min max connection age
+    maxAcquireTime: ${R2DBC_MAXACQUIRETIME:5}      # 5s to get a conn from pool
+    maxCreateConnectionTime: ${R2DBC_MAXCREATECONNECTIONTIME:10} # 10s to open new conn
+    connectTimeout: ${R2DBC_CONNECTTIMEOUT:5}      # 5s TCP connect timeout
+    # Validation
     validationQuery: ${R2DBC_VALIDATIONQUERY:SELECT 1}
+    # SSL
+    sslEnabled: ${R2DBC_SSL_ENABLED:false}

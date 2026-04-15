@@ -2,8 +2,10 @@ package co.com.ancas.finance.r2dbc.config;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.r2dbc.pool.ConnectionPoolConfiguration;
+import io.r2dbc.pool.PoolMetrics;
 import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
 import io.r2dbc.postgresql.PostgresqlConnectionFactory;
+import io.r2dbc.spi.ValidationDepth;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
@@ -20,6 +22,7 @@ import java.util.Objects;
 @EnableTransactionManagement
 @EnableR2dbcRepositories(basePackages = "co.com.ancas.finance.r2dbc.repositories")
 public class PostgreSQLConnection {
+
     private final PostgresqlConnectionProperties properties;
 
     public PostgreSQLConnection(PostgresqlConnectionProperties properties) {
@@ -33,7 +36,9 @@ public class PostgreSQLConnection {
                 .database(properties.getDatabase())
                 .username(properties.getUsername())
                 .password(properties.getPassword())
-                .port(properties.getPort());
+                .port(properties.getPort())
+                .connectTimeout(Duration.ofSeconds(properties.getConnectTimeout()))
+                .sslMode(properties.isSslEnabled() ? io.r2dbc.postgresql.client.SSLMode.REQUIRE : io.r2dbc.postgresql.client.SSLMode.DISABLE);
 
         if (Objects.nonNull(properties.getSchema()) && !properties.getSchema().isEmpty()) {
             builder.schema(properties.getSchema());
@@ -45,16 +50,20 @@ public class PostgreSQLConnection {
     @Bean(destroyMethod = "dispose")
     public ConnectionPool connectionPool() {
         ConnectionPoolConfiguration.Builder builder = ConnectionPoolConfiguration.builder(postgresConnectionFactory())
-                .maxSize(properties.getMaxSize())
                 .initialSize(properties.getPoolSize())
-                .maxIdleTime(Duration.ofMillis(properties.getMaxIdleTime()));
+                .maxSize(properties.getMaxSize())
+                .maxIdleTime(Duration.ofSeconds(properties.getMaxIdleTime()))
+                .maxLifeTime(Duration.ofSeconds(properties.getMaxLifeTime()))
+                .maxAcquireTime(Duration.ofSeconds(properties.getMaxAcquireTime()))
+                .maxCreateConnectionTime(Duration.ofSeconds(properties.getMaxCreateConnectionTime()))
+                .validationDepth(ValidationDepth.REMOTE);
+
         if (StringUtils.hasText(properties.getValidationQuery())) {
             builder.validationQuery(properties.getValidationQuery());
         }
 
         return new ConnectionPool(builder.build());
     }
-
 
     @Bean("r2dbcTransactionManager")
     public R2dbcTransactionManager transactionManager(ConnectionPool connectionPool) {
@@ -66,12 +75,17 @@ public class PostgreSQLConnection {
         return TransactionalOperator.create(r2dbcTransactionManager);
     }
 
-
     @Bean
     public DatabaseClient databaseClient(ConnectionPool connectionPool) {
         return DatabaseClient.builder()
                 .connectionFactory(connectionPool)
                 .namedParameters(true)
                 .build();
+    }
+
+    @Bean
+    public PoolMetrics poolMetrics(ConnectionPool connectionPool) {
+        return connectionPool.getMetrics()
+                .orElseThrow(() -> new IllegalStateException("Pool metrics not available"));
     }
 }
