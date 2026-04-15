@@ -2,16 +2,16 @@ package co.com.ancas.finance.model.users;
 public class UserModel {
     private Long id;
     private String email;
-    private String pasword;
+    private String password;
     private Long personId;
 
     public UserModel() {
     }
 
-    public UserModel(Long id, String email, String pasword, Long personId) {
+    public UserModel(Long id, String email, String password, Long personId) {
         this.id = id;
         this.email = email;
-        this.pasword = pasword;
+        this.password = password;
         this.personId = personId;
     }
 
@@ -31,12 +31,12 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getPasword() {
-        return pasword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasword(String pasword) {
-        this.pasword = pasword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getPersonId() {

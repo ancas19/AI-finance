@@ -1,7 +1,7 @@
 package co.com.ancas.finance.api;
 
-import co.com.ancas.finance.api.rest.handler.Handler;
-import co.com.ancas.finance.api.rest.route.RouterRest;
+import co.com.ancas.finance.api.rest.handler.HealthCheckHandler;
+import co.com.ancas.finance.api.rest.route.HealthCheckRouterRest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-@ContextConfiguration(classes = {RouterRest.class, Handler.class})
+@ContextConfiguration(classes = {HealthCheckRouterRest.class, HealthCheckHandler.class})
 @WebFluxTest
-class RouterRestTest {
+class HealthCheckRouterRestTest {
 
     @Autowired
     private WebTestClient webTestClient;

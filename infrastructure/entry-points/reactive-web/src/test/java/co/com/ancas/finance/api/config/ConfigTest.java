@@ -1,7 +1,7 @@
 package co.com.ancas.finance.api.config;
 
-import co.com.ancas.finance.api.rest.handler.Handler;
-import co.com.ancas.finance.api.rest.route.RouterRest;
+import co.com.ancas.finance.api.rest.handler.HealthCheckHandler;
+import co.com.ancas.finance.api.rest.route.HealthCheckRouterRest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webflux.test.autoconfigure.WebFluxTest;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-@ContextConfiguration(classes = {RouterRest.class, Handler.class})
+@ContextConfiguration(classes = {HealthCheckRouterRest.class, HealthCheckHandler.class})
 @WebFluxTest
 @Import({CorsConfig.class, SecurityHeadersConfig.class})
 class ConfigTest {

@@ -1,9 +1,11 @@
 package co.com.ancas.finance.api.requests;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+@Schema(description = "User registration request payload")
 public record UserRegistrationRequest(
         @NotNull(message="Names is required")
         @NotBlank(message="Names is required")

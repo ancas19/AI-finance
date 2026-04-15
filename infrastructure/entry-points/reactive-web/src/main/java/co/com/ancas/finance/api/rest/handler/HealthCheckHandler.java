@@ -6,7 +6,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @Component
-public class Handler {
+public class HealthCheckHandler {
 
     public Mono<ServerResponse> healthCheck(ServerRequest request) {
         return ServerResponse.ok().bodyValue("OK");
