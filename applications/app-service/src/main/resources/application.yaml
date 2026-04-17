@@ -1,6 +1,9 @@
 server:
   port: ${APP_PORT:8080}
 spring:
+  output:
+    ansi:
+      enabled: always
   application:
     name: "api-ai-finance"
   webflux:

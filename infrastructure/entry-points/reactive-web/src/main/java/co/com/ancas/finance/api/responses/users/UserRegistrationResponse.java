@@ -1,4 +1,4 @@
-package co.com.ancas.finance.api.responses;
+package co.com.ancas.finance.api.responses.users;
 
 
 public record UserRegistrationResponse(

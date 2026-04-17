@@ -1,6 +1,6 @@
 package co.com.ancas.finance.api.service;
 
-import co.com.ancas.finance.api.responses.UserRegistrationResponse;
+import co.com.ancas.finance.api.responses.users.UserRegistrationResponse;
 import co.com.ancas.finance.model.people.PeopleModel;
 import co.com.ancas.finance.model.users.UserCreationModel;
 import co.com.ancas.finance.model.users.UserModel;

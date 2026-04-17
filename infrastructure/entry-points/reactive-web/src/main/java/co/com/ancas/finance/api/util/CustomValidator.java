@@ -6,6 +6,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
+import org.springframework.web.server.ServerWebInputException;
 import reactor.core.publisher.Mono;
 
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class CustomValidator {
                     })
                     .collect(Collectors.joining(", "));
 
-            return Mono.error(new BadRequestException(errorMessages));
+            return Mono.error(new ServerWebInputException(errorMessages));
         }
         return Mono.just(dto);
     }
